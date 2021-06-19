@@ -34,17 +34,20 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      enableAddressSanitizer = "YES"
+      enableASanStackUseAfterReturn = "YES"
+      enableUBSanitizer = "YES"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/jake/Workspace/personal/MoltenVK-Tests/vk_parameter_zoo"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "NO"
       debugXPCServices = "NO"
       debugServiceExtension = "internal"
       enableGPUFrameCaptureMode = "3"
-      enableGPUValidationMode = "1"
+      enableGPUShaderValidationMode = "2"
       allowLocationSimulation = "NO"
       viewDebuggingEnabled = "No"
-      queueDebuggingEnabled = "No"
       GPUProfilerEnabled = "No">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
@@ -68,6 +71,18 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "MallocScribble"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

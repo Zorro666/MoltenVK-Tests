@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <vector>
 #include <array>
+#include <fstream>
 
 #include <vulkan/vulkan.h>
 
@@ -62,6 +63,35 @@ do \
     abort(); \
   } \
 } while (0)
+
+static VkShaderModule createShaderModule(Context& context, const char* path)
+{
+  std::ifstream file(path, std::ios::binary);
+  if (!file.is_open())
+  {
+    fprintf(stderr, "ERROR opening file '%s'", path);
+    abort();
+  }
+  
+  file.seekg(0, std::ios_base::end);
+  size_t fileSizeInBytes = file.tellg();
+  auto buffer = new uint32_t[fileSizeInBytes/4];
+  file.seekg(0, std::ios_base::beg);
+  file.read((char*)buffer, fileSizeInBytes);
+  file.close();
+  
+  VkShaderModuleCreateInfo createInfo;
+  createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+  createInfo.flags = 0;
+  createInfo.pNext = nullptr;
+  createInfo.codeSize = fileSizeInBytes;
+  createInfo.pCode = buffer;
+  
+  VkShaderModule shaderModule;
+  VULKAN_CHECK(vkCreateShaderModule(context.device, &createInfo, nullptr, &shaderModule));
+  
+  return shaderModule;
+}
 
 static void initVkInstance(Context& context)
 {
@@ -314,12 +344,12 @@ static void initPipeline(Context &context)
 
   shaderStages[0].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
   shaderStages[0].stage  = VK_SHADER_STAGE_VERTEX_BIT;
-  shaderStages[0].module = nullptr;//load_shader_module(context, "triangle.vert");
+  shaderStages[0].module = createShaderModule(context, "vert.spv");
   shaderStages[0].pName  = "main";
 
   shaderStages[1].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
   shaderStages[1].stage  = VK_SHADER_STAGE_FRAGMENT_BIT;
-  shaderStages[1].module = nullptr;//load_shader_module(context, "triangle.frag");
+  shaderStages[1].module = createShaderModule(context, "frag.spv");
   shaderStages[1].pName  = "main";
 
   VkGraphicsPipelineCreateInfo pipe;
@@ -355,10 +385,10 @@ static void createSurface(Context &context)
   void* layer = cocoa_windowGetLayer(context.cocoaWindow);
 
   VkMetalSurfaceCreateInfoEXT createInfo;
+  createInfo.sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT;
   createInfo.pLayer = layer;
   createInfo.flags = 0;
   createInfo.pNext = nullptr;
-  createInfo.sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT;
   
   VULKAN_CHECK(vkCreateMetalSurfaceEXT(context.instance, &createInfo, nullptr, &context.surface));
 }

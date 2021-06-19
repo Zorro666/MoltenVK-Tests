@@ -35,6 +35,10 @@
 		23A53565267BE5DF00E4656A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		23A53567267DBDCB00E4656A /* libMoltenVK.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMoltenVK.dylib; path = ../MoltenVK/Package/Debug/MoltenVK/dylib/macOS/libMoltenVK.dylib; sourceTree = "<group>"; };
 		23A5356B267DBF7400E4656A /* libvulkan.1.2.176.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.176.dylib; path = ../../../../../usr/local/lib/libvulkan.1.2.176.dylib; sourceTree = "<group>"; };
+		23A53573267E4E4A00E4656A /* vert.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vert.glsl; sourceTree = "<group>"; };
+		23A53574267E4E6E00E4656A /* frag.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frag.glsl; sourceTree = "<group>"; };
+		23A53575267E4F2F00E4656A /* vert.spv */ = {isa = PBXFileReference; lastKnownFileType = file; path = vert.spv; sourceTree = "<group>"; };
+		23A53576267E4F2F00E4656A /* frag.spv */ = {isa = PBXFileReference; lastKnownFileType = file; path = frag.spv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +77,13 @@
 		23A535572674852700E4656A /* vk_parameter_zoo */ = {
 			isa = PBXGroup;
 			children = (
+				23A53576267E4F2F00E4656A /* frag.spv */,
+				23A53575267E4F2F00E4656A /* vert.spv */,
 				23A53560267BE4DB00E4656A /* cocoa_window.mm */,
 				23A5355F2676AC7200E4656A /* vk_parameter_zoo.entitlements */,
 				23A535582674852700E4656A /* main.cpp */,
+				23A53573267E4E4A00E4656A /* vert.glsl */,
+				23A53574267E4E6E00E4656A /* frag.glsl */,
 			);
 			path = vk_parameter_zoo;
 			sourceTree = "<group>";
