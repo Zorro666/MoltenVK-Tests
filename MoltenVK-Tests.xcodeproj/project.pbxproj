@@ -25,6 +25,15 @@
 		2382CDA42686FF1500EDF9DB /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A5358C267F2FDB00E4656A /* IOSurface.framework */; };
 		2382CDAB2687003600EDF9DB /* bug1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD8A2686FD2F00EDF9DB /* bug1.cpp */; };
 		2382CDAE268700E400EDF9DB /* bug2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CDAC268700C000EDF9DB /* bug2.cpp */; };
+		2382CDB1268701F400EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
+		2382CDB2268701F400EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
+		2382CDB5268701F400EDF9DB /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
+		2382CDB6268701F400EDF9DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
+		2382CDB7268701F400EDF9DB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53589267F2FB000E4656A /* Metal.framework */; };
+		2382CDB8268701F400EDF9DB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53565267BE5DF00E4656A /* AppKit.framework */; };
+		2382CDB9268701F400EDF9DB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53587267F2F9500E4656A /* IOKit.framework */; };
+		2382CDBA268701F400EDF9DB /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A5358C267F2FDB00E4656A /* IOSurface.framework */; };
+		2382CDC12687023800EDF9DB /* bug3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CDC02687023800EDF9DB /* bug3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,16 +79,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		2382CDBB268701F400EDF9DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2382CD812686F56400EDF9DB /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
 		2382CD822686F56400EDF9DB /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
-		2382CD882686FD2F00EDF9DB /* vk_parameter_zoo_bug_1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2382CD8A2686FD2F00EDF9DB /* bug1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bug1.cpp; sourceTree = "<group>"; };
 		2382CD942686FE6900EDF9DB /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		2382CDA92686FF1500EDF9DB /* vk_parameter_zoo_bug_2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_2; sourceTree = BUILT_PRODUCTS_DIR; };
 		2382CDAC268700C000EDF9DB /* bug2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bug2.cpp; sourceTree = "<group>"; };
+		2382CDC02687023800EDF9DB /* bug3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bug3.cpp; sourceTree = "<group>"; };
+		2382CDC2268702D300EDF9DB /* vk_parameter_zoo_bug_1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_1; sourceTree = BUILT_PRODUCTS_DIR; };
+		2382CDC3268702D600EDF9DB /* vk_parameter_zoo_bug_2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_2; sourceTree = BUILT_PRODUCTS_DIR; };
+		2382CDC4268702DA00EDF9DB /* vk_parameter_zoo_bug_3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_3; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A535582674852700E4656A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23A53560267BE4DB00E4656A /* cocoa_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cocoa_window.mm; sourceTree = "<group>"; };
 		23A53563267BE5C700E4656A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -123,6 +143,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2382CDB4268701F400EDF9DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2382CDB5268701F400EDF9DB /* libMoltenVK.a in Frameworks */,
+				2382CDB6268701F400EDF9DB /* QuartzCore.framework in Frameworks */,
+				2382CDB7268701F400EDF9DB /* Metal.framework in Frameworks */,
+				2382CDB8268701F400EDF9DB /* AppKit.framework in Frameworks */,
+				2382CDB9268701F400EDF9DB /* IOKit.framework in Frameworks */,
+				2382CDBA268701F400EDF9DB /* IOSurface.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -132,8 +165,10 @@
 				23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */,
 				2382CD7E2686F4F700EDF9DB /* common */,
 				23A535572674852700E4656A /* vk_parameter_zoo */,
-				23A535562674852700E4656A /* Products */,
 				23A53562267BE5C700E4656A /* Frameworks */,
+				2382CDC2268702D300EDF9DB /* vk_parameter_zoo_bug_1 */,
+				2382CDC3268702D600EDF9DB /* vk_parameter_zoo_bug_2 */,
+				2382CDC4268702DA00EDF9DB /* vk_parameter_zoo_bug_3 */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -153,20 +188,12 @@
 			path = common;
 			sourceTree = "<group>";
 		};
-		23A535562674852700E4656A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2382CD882686FD2F00EDF9DB /* vk_parameter_zoo_bug_1 */,
-				2382CDA92686FF1500EDF9DB /* vk_parameter_zoo_bug_2 */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		23A535572674852700E4656A /* vk_parameter_zoo */ = {
 			isa = PBXGroup;
 			children = (
-				2382CDAC268700C000EDF9DB /* bug2.cpp */,
 				2382CD8A2686FD2F00EDF9DB /* bug1.cpp */,
+				2382CDAC268700C000EDF9DB /* bug2.cpp */,
+				2382CDC02687023800EDF9DB /* bug3.cpp */,
 				23A535582674852700E4656A /* main.cpp */,
 			);
 			path = vk_parameter_zoo;
@@ -214,7 +241,7 @@
 			);
 			name = vk_parameter_zoo_bug_1;
 			productName = vk_parameter_zoo_bug_1;
-			productReference = 2382CD882686FD2F00EDF9DB /* vk_parameter_zoo_bug_1 */;
+			productReference = 2382CDC2268702D300EDF9DB /* vk_parameter_zoo_bug_1 */;
 			productType = "com.apple.product-type.tool";
 		};
 		2382CD992686FF1500EDF9DB /* vk_parameter_zoo_bug_2 */ = {
@@ -231,7 +258,24 @@
 			);
 			name = vk_parameter_zoo_bug_2;
 			productName = vk_parameter_zoo_bug_1;
-			productReference = 2382CDA92686FF1500EDF9DB /* vk_parameter_zoo_bug_2 */;
+			productReference = 2382CDC3268702D600EDF9DB /* vk_parameter_zoo_bug_2 */;
+			productType = "com.apple.product-type.tool";
+		};
+		2382CDAF268701F400EDF9DB /* vk_parameter_zoo_bug_3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2382CDBC268701F400EDF9DB /* Build configuration list for PBXNativeTarget "vk_parameter_zoo_bug_3" */;
+			buildPhases = (
+				2382CDB0268701F400EDF9DB /* Sources */,
+				2382CDB4268701F400EDF9DB /* Frameworks */,
+				2382CDBB268701F400EDF9DB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vk_parameter_zoo_bug_3;
+			productName = vk_parameter_zoo_bug_1;
+			productReference = 2382CDC4268702DA00EDF9DB /* vk_parameter_zoo_bug_3 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -257,7 +301,7 @@
 				Base,
 			);
 			mainGroup = 23197950266F352D00EED288;
-			productRefGroup = 23A535562674852700E4656A /* Products */;
+			productRefGroup = 23197950266F352D00EED288;
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -269,6 +313,7 @@
 			targets = (
 				2382CD872686FD2F00EDF9DB /* vk_parameter_zoo_bug_1 */,
 				2382CD992686FF1500EDF9DB /* vk_parameter_zoo_bug_2 */,
+				2382CDAF268701F400EDF9DB /* vk_parameter_zoo_bug_3 */,
 			);
 		};
 /* End PBXProject section */
@@ -315,6 +360,16 @@
 				2382CD9B2686FF1500EDF9DB /* common.cpp in Sources */,
 				2382CD9C2686FF1500EDF9DB /* cocoa_window.mm in Sources */,
 				2382CDAE268700E400EDF9DB /* bug2.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2382CDB0268701F400EDF9DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2382CDB1268701F400EDF9DB /* common.cpp in Sources */,
+				2382CDB2268701F400EDF9DB /* cocoa_window.mm in Sources */,
+				2382CDC12687023800EDF9DB /* bug3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +473,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -454,7 +509,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -485,7 +540,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -521,7 +576,74 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MNHBTWM7RN;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2382CDBD268701F400EDF9DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MNHBTWM7RN;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2382CDBE268701F400EDF9DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -573,6 +695,15 @@
 			buildConfigurations = (
 				2382CDA72686FF1500EDF9DB /* Debug */,
 				2382CDA82686FF1500EDF9DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2382CDBC268701F400EDF9DB /* Build configuration list for PBXNativeTarget "vk_parameter_zoo_bug_3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2382CDBD268701F400EDF9DB /* Debug */,
+				2382CDBE268701F400EDF9DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
