@@ -100,7 +100,6 @@
 		2382CDC2268702D300EDF9DB /* vk_parameter_zoo_bug_1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2382CDC3268702D600EDF9DB /* vk_parameter_zoo_bug_2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_2; sourceTree = BUILT_PRODUCTS_DIR; };
 		2382CDC4268702DA00EDF9DB /* vk_parameter_zoo_bug_3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo_bug_3; sourceTree = BUILT_PRODUCTS_DIR; };
-		23A535582674852700E4656A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23A53560267BE4DB00E4656A /* cocoa_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cocoa_window.mm; sourceTree = "<group>"; };
 		23A53563267BE5C700E4656A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23A53565267BE5DF00E4656A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -194,7 +193,6 @@
 				2382CD8A2686FD2F00EDF9DB /* bug1.cpp */,
 				2382CDAC268700C000EDF9DB /* bug2.cpp */,
 				2382CDC02687023800EDF9DB /* bug3.cpp */,
-				23A535582674852700E4656A /* main.cpp */,
 			);
 			path = vk_parameter_zoo;
 			sourceTree = "<group>";
