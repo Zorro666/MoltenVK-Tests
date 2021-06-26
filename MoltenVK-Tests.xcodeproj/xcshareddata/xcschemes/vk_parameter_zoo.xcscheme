@@ -37,7 +37,7 @@
       enableASanStackUseAfterReturn = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/jake/Workspace/personal/MoltenVK-Tests/vk_parameter_zoo"
+      customWorkingDirectory = "/Users/jake/Workspace/personal/MoltenVK-Tests"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "NO"
       debugXPCServices = "NO"

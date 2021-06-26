@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2382CD832686F56400EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		23A535592674852700E4656A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23A535582674852700E4656A /* main.cpp */; };
 		23A53561267BE4DB00E4656A /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
 		23A53564267BE5C700E4656A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
@@ -61,6 +62,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2382CD812686F56400EDF9DB /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
+		2382CD822686F56400EDF9DB /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		23A535552674852700E4656A /* vk_parameter_zoo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vk_parameter_zoo; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A535582674852700E4656A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23A5355F2676AC7200E4656A /* vk_parameter_zoo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo.entitlements; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */,
+				2382CD7E2686F4F700EDF9DB /* common */,
 				23A535572674852700E4656A /* vk_parameter_zoo */,
 				23A535562674852700E4656A /* Products */,
 				23A53562267BE5C700E4656A /* Frameworks */,
@@ -107,6 +111,20 @@
 			indentWidth = 2;
 			sourceTree = "<group>";
 			tabWidth = 2;
+		};
+		2382CD7E2686F4F700EDF9DB /* common */ = {
+			isa = PBXGroup;
+			children = (
+				23A53560267BE4DB00E4656A /* cocoa_window.mm */,
+				23A53575267E4F2F00E4656A /* vert.spv */,
+				23A53576267E4F2F00E4656A /* frag.spv */,
+				23A53574267E4E6E00E4656A /* frag.glsl */,
+				23A53573267E4E4A00E4656A /* vert.glsl */,
+				2382CD812686F56400EDF9DB /* common.cpp */,
+				2382CD822686F56400EDF9DB /* common.hpp */,
+			);
+			path = common;
+			sourceTree = "<group>";
 		};
 		23A535562674852700E4656A /* Products */ = {
 			isa = PBXGroup;
@@ -119,13 +137,8 @@
 		23A535572674852700E4656A /* vk_parameter_zoo */ = {
 			isa = PBXGroup;
 			children = (
-				23A53576267E4F2F00E4656A /* frag.spv */,
-				23A53575267E4F2F00E4656A /* vert.spv */,
-				23A53560267BE4DB00E4656A /* cocoa_window.mm */,
 				23A5355F2676AC7200E4656A /* vk_parameter_zoo.entitlements */,
 				23A535582674852700E4656A /* main.cpp */,
-				23A53573267E4E4A00E4656A /* vert.glsl */,
-				23A53574267E4E6E00E4656A /* frag.glsl */,
 			);
 			path = vk_parameter_zoo;
 			sourceTree = "<group>";
@@ -243,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23A535592674852700E4656A /* main.cpp in Sources */,
+				2382CD832686F56400EDF9DB /* common.cpp in Sources */,
 				23A53561267BE4DB00E4656A /* cocoa_window.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

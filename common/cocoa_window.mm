@@ -1,8 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
 
-struct cocoa_Window
-{
+struct cocoa_Window {
   NSWindow *nsWindow;
   NSView *nsView;
   bool shouldClose;
@@ -13,10 +12,8 @@ struct cocoa_Window
 
 @implementation cocoa_WindowApplicationDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-  @autoreleasepool
-  {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+  @autoreleasepool {
     NSEvent *event = [NSEvent otherEventWithType:NSEventTypeApplicationDefined
                                         location:NSMakePoint(0, 0)
                                    modifierFlags:0
@@ -33,8 +30,7 @@ struct cocoa_Window
 
 @end
 
-@interface cocoa_WindowDelegate : NSObject
-{
+@interface cocoa_WindowDelegate : NSObject {
   cocoa_Window *window;
 }
 
@@ -44,27 +40,23 @@ struct cocoa_Window
 
 @implementation cocoa_WindowDelegate
 
-- (instancetype)initWithCocoaWindow:(cocoa_Window *)initWindow
-{
+- (instancetype)initWithCocoaWindow:(cocoa_Window *)initWindow {
   self = [super init];
   assert(self);
   window = initWindow;
   return self;
 }
 
-- (BOOL)windowShouldClose:(id)sender
-{
+- (BOOL)windowShouldClose:(id)sender {
   window->shouldClose = true;
   return NO;
 }
 @end
 
-void *cocoa_windowCreate(int width, int height, const char *title)
-{
+void *cocoa_windowCreate(int width, int height, const char *title) {
   cocoa_Window *window = (cocoa_Window *)calloc(1, sizeof(cocoa_Window));
 
-  @autoreleasepool
-  {
+  @autoreleasepool {
     [NSApplication sharedApplication];
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
     [NSApp activateIgnoringOtherApps:YES];
@@ -72,19 +64,19 @@ void *cocoa_windowCreate(int width, int height, const char *title)
     id appDelegate = [[cocoa_WindowApplicationDelegate alloc] init];
     [NSApp setDelegate:appDelegate];
 
-    if(![[NSRunningApplication currentApplication] isFinishedLaunching])
+    if (![[NSRunningApplication currentApplication] isFinishedLaunching])
       [NSApp run];
   }
 
   NSRect contentRect;
   contentRect = NSMakeRect(0, 0, width, height);
 
-  window->nsWindow =
-      [[NSWindow alloc] initWithContentRect:contentRect
-                                  styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
-                                            NSWindowStyleMaskMiniaturizable
-                                    backing:NSBackingStoreBuffered
-                                      defer:NO];
+  window->nsWindow = [[NSWindow alloc]
+      initWithContentRect:contentRect
+                styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
+                          NSWindowStyleMaskMiniaturizable
+                  backing:NSBackingStoreBuffered
+                    defer:NO];
   assert(window->nsWindow);
 
   window->nsView = [[NSView alloc] initWithFrame:contentRect];
@@ -106,22 +98,19 @@ void *cocoa_windowCreate(int width, int height, const char *title)
   return (void *)window;
 }
 
-void *cocoa_windowGetLayer(void *cocoaWindow)
-{
+void *cocoa_windowGetLayer(void *cocoaWindow) {
   cocoa_Window *window = (cocoa_Window *)cocoaWindow;
   assert(window);
   return (__bridge void *)(window->nsView.layer);
 }
 
-void *cocoa_windowGetView(void *cocoaWindow)
-{
+void *cocoa_windowGetView(void *cocoaWindow) {
   cocoa_Window *window = (cocoa_Window *)cocoaWindow;
   assert(window);
   return (__bridge void *)(window->nsView);
 }
 
-bool cocoa_windowShouldClose(void *cocoaWindow)
-{
+bool cocoa_windowShouldClose(void *cocoaWindow) {
   cocoa_Window *window = (cocoa_Window *)cocoaWindow;
   assert(window);
   return window->shouldClose;
