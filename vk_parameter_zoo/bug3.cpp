@@ -9,14 +9,44 @@ int main(int argc, const char * argv[])
 
   /*
    updates to a VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER descriptor with immutable samplers does not modify the samplers (the image views are updated, but the sampler updates are ignored).
+   
+   VkDescriptorImageInfo
+
+   sampler is a sampler handle, and is used in descriptor updates for types VK_DESCRIPTOR_TYPE_SAMPLER and VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER if the binding being updated does not use immutable samplers.
+   
+   If the descriptor type is VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, the sampler member of the pImageInfo parameter is ignored and the immutable sampler is taken from the push descriptor set layout in the pipeline layout.
+   
+   If descriptorType is VK_DESCRIPTOR_TYPE_SAMPLER or VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, and dstSet was not allocated with a layout that included immutable samplers for dstBinding with descriptorType, the sampler member of each element of pImageInfo must be a valid VkSampler object
    */
+
+  VkSampler validSampler;
+  VkSamplerCreateInfo samplerCreateInfo;
+  samplerCreateInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+  samplerCreateInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+  samplerCreateInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+  samplerCreateInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+  samplerCreateInfo.anisotropyEnable = VK_FALSE;
+  samplerCreateInfo.borderColor = VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK;
+  samplerCreateInfo.compareEnable = VK_FALSE;
+  samplerCreateInfo.compareOp = VK_COMPARE_OP_NEVER;
+  samplerCreateInfo.flags = 0;
+  samplerCreateInfo.magFilter = VK_FILTER_LINEAR;
+  samplerCreateInfo.maxAnisotropy = 0.0f;
+  samplerCreateInfo.maxLod = 0.0f;
+  samplerCreateInfo.minFilter = VK_FILTER_LINEAR;
+  samplerCreateInfo.minLod = 0.0f;
+  samplerCreateInfo.mipLodBias = 0.0f;
+  samplerCreateInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+  samplerCreateInfo.pNext = nullptr;
+  samplerCreateInfo.unnormalizedCoordinates = VK_FALSE;
+  VULKAN_CHECK(vkCreateSampler(context.device, &samplerCreateInfo, NULL, &validSampler));
 
   VkDescriptorSetLayoutBinding descriptorSetLayoutBinding;
   descriptorSetLayoutBinding.binding = 0;
   descriptorSetLayoutBinding.descriptorCount = 1;
-  descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-  descriptorSetLayoutBinding.pImmutableSamplers = nullptr;
-  descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_ALL;
+  descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+  descriptorSetLayoutBinding.pImmutableSamplers = &validSampler;
+  descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
   
   VkDescriptorSetLayout descriptorSetLayout;
 
@@ -111,15 +141,17 @@ int main(int argc, const char * argv[])
   VkImageView validImgView;
   VULKAN_CHECK(vkCreateImageView(context.device, &imageViewCreateInfo, nullptr, &validImgView));
 
-  VkSampler invalidSampler = (VkSampler)0x1234;
-
   VkDescriptorSet descriptorSet;
   VULKAN_CHECK(vkAllocateDescriptorSets(context.device, &descSetAllocateInfo, &descriptorSet));
+  
+  VkSampler invalidSampler = (VkSampler)0x1234;
+  
   VkDescriptorImageInfo imageInfo;
   imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
   imageInfo.imageView = validImgView;
   imageInfo.sampler = invalidSampler;
-  
+  //imageInfo.sampler = validSampler;
+
   VkWriteDescriptorSet writeSet;
   writeSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
   writeSet.descriptorCount = 1;
@@ -134,15 +166,16 @@ int main(int argc, const char * argv[])
   VkCopyDescriptorSet copySet;
   vkUpdateDescriptorSets(context.device, 1, &writeSet, 0, &copySet);
 
-/*  (
-      device,
-      {
-          vkh::WriteDescriptorSet(
-              immutdescset, 0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-              {
-                  vkh::DescriptorImageInfo(validImgView, VK_IMAGE_LAYOUT_GENERAL, invalidSampler),
-              }),
-      });
+/*
+  vkh::updateDescriptorSets(
+    device,
+    {
+      vkh::WriteDescriptorSet(
+        immutdescset, 0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+        {
+          vkh::DescriptorImageInfo(validImgView, VK_IMAGE_LAYOUT_GENERAL, invalidSampler),
+        }),
+    });
  */
 
   printf("Hello, World!\n");
