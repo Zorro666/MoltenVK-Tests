@@ -57,6 +57,10 @@ static const char *VkResultToString(VkResult result) {
     return "VK_ERROR_VALIDATION_FAILED_EXT";
   case VK_ERROR_INVALID_SHADER_NV:
     return "VK_ERROR_INVALID_SHADER_NV";
+  case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+    return "VK_ERROR_INVALID_EXTERNAL_HANDLE";
+  case VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR:
+    return "VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR";
   default:
     return "UNKNOWN ERROR";
   }
@@ -448,6 +452,19 @@ void initializeContext(Context &context, const char *windowName) {
   createShaderModules(context);
   createRenderPass(context);
   initializeBasePipeline(context);
+}
+
+uint32_t getMemoryTypeIndex(Context& context, uint32_t typeFilter, VkMemoryPropertyFlags propertyFlags) {
+  VkPhysicalDeviceMemoryProperties memoryProperties;
+  vkGetPhysicalDeviceMemoryProperties(context.physicalDevice, &memoryProperties);
+  
+  for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++) {
+      if ((typeFilter & (1 << i)) && (memoryProperties.memoryTypes[i].propertyFlags & propertyFlags) == propertyFlags) {
+          return i;
+      }
+  }
+  fprintf(stderr, "ERROR failed to memory type %u\n", typeFilter);
+  abort();
 }
 
 void destroyContext(Context &context)

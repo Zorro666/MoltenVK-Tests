@@ -114,6 +114,20 @@ int main(int argc, const char * argv[])
 
   VkImage validImage;
   VULKAN_CHECK(vkCreateImage(context.device, &imageCreateInfo, nullptr, &validImage));
+  
+  VkMemoryRequirements memoryRequirements;
+  vkGetImageMemoryRequirements(context.device, validImage, &memoryRequirements);
+
+  VkMemoryAllocateInfo allocateInfo;
+  allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+  allocateInfo.allocationSize = memoryRequirements.size;
+  allocateInfo.memoryTypeIndex = getMemoryTypeIndex(context, memoryRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+  allocateInfo.pNext = nullptr;
+
+  VkDeviceMemory imageMemory;
+  VULKAN_CHECK(vkAllocateMemory(context.device, &allocateInfo, nullptr, &imageMemory));
+
+  VULKAN_CHECK(vkBindImageMemory(context.device, validImage, imageMemory, 0));
 
   VkComponentMapping components;
   components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -141,11 +155,6 @@ int main(int argc, const char * argv[])
   VkImageView validImgView;
   VULKAN_CHECK(vkCreateImageView(context.device, &imageViewCreateInfo, nullptr, &validImgView));
 
-  /*
-   Memory should be bound by calling vkBindImageMemory().
-   The Vulkan spec states:
-   If image is non-sparse then it must be bound completely and contiguously to a single VkDeviceMemory object
-   */
   VkDescriptorSet descriptorSet;
   VULKAN_CHECK(vkAllocateDescriptorSets(context.device, &descSetAllocateInfo, &descriptorSet));
   

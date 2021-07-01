@@ -38,6 +38,7 @@ struct Context {
 
 void initializeContext(Context &context, const char *windowName);
 void destroyContext(Context &context);
+uint32_t getMemoryTypeIndex(Context& context, uint32_t typeFilter, VkMemoryPropertyFlags propertyFlags);
 
 void createPipeline(Context &context);
 void destroyPipeline(Context &context);
