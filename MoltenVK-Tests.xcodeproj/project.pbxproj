@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230C72E4268AD7F40017A1D8 /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
 		2382CD8F2686FDCA00EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
 		2382CD902686FDCD00EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		2382CD912686FE5100EDF9DB /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A5358C267F2FDB00E4656A /* IOSurface.framework */; };
@@ -14,7 +15,6 @@
 		2382CD932686FE5F00EDF9DB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53565267BE5DF00E4656A /* AppKit.framework */; };
 		2382CD962686FE7300EDF9DB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53589267F2FB000E4656A /* Metal.framework */; };
 		2382CD972686FE7C00EDF9DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
-		2382CD982686FE8E00EDF9DB /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
 		2382CD9B2686FF1500EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		2382CD9C2686FF1500EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
 		2382CD9F2686FF1500EDF9DB /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
@@ -61,15 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2382CD862686FD2F00EDF9DB /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		2382CDA52686FF1500EDF9DB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -91,6 +82,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		230C72D7268ACC6A0017A1D8 /* libvulkan.1.2.176.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.176.dylib; path = ../../../VulkanSDK/1.2.176.1/macOS/lib/libvulkan.1.2.176.dylib; sourceTree = "<group>"; };
+		230C72DC268ACD3E0017A1D8 /* vulkan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vulkan.framework; path = ../../../VulkanSDK/1.2.176.1/macOS/Frameworks/vulkan.framework; sourceTree = "<group>"; };
+		230C72E1268AD40A0017A1D8 /* libvulkan.1.2.179.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.2.179.dylib; path = "../Vulkan-Tools/build/Vulkan-Loader/build/install/lib/libvulkan.1.2.179.dylib"; sourceTree = "<group>"; };
+		230C72E3268AD4CB0017A1D8 /* vk_parameter_zoo_bug_1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo_bug_1.entitlements; sourceTree = "<group>"; };
+		230C72E5268AD8FD0017A1D8 /* vk_parameter_zoo_bug_2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo_bug_2.entitlements; sourceTree = "<group>"; };
+		230C72E6268AD9000017A1D8 /* vk_parameter_zoo_bug_3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo_bug_3.entitlements; sourceTree = "<group>"; };
 		2382CD812686F56400EDF9DB /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
 		2382CD822686F56400EDF9DB /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		2382CD8A2686FD2F00EDF9DB /* bug1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bug1.cpp; sourceTree = "<group>"; };
@@ -120,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2382CD982686FE8E00EDF9DB /* libMoltenVK.a in Frameworks */,
+				230C72E4268AD7F40017A1D8 /* libMoltenVK.a in Frameworks */,
 				2382CD972686FE7C00EDF9DB /* QuartzCore.framework in Frameworks */,
 				2382CD962686FE7300EDF9DB /* Metal.framework in Frameworks */,
 				2382CD932686FE5F00EDF9DB /* AppKit.framework in Frameworks */,
@@ -161,6 +158,9 @@
 		23197950266F352D00EED288 = {
 			isa = PBXGroup;
 			children = (
+				230C72E6268AD9000017A1D8 /* vk_parameter_zoo_bug_3.entitlements */,
+				230C72E5268AD8FD0017A1D8 /* vk_parameter_zoo_bug_2.entitlements */,
+				230C72E3268AD4CB0017A1D8 /* vk_parameter_zoo_bug_1.entitlements */,
 				23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */,
 				2382CD7E2686F4F700EDF9DB /* common */,
 				23A535572674852700E4656A /* vk_parameter_zoo */,
@@ -200,6 +200,9 @@
 		23A53562267BE5C700E4656A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				230C72E1268AD40A0017A1D8 /* libvulkan.1.2.179.dylib */,
+				230C72DC268ACD3E0017A1D8 /* vulkan.framework */,
+				230C72D7268ACC6A0017A1D8 /* libvulkan.1.2.176.dylib */,
 				2382CD942686FE6900EDF9DB /* MetalKit.framework */,
 				23A5358C267F2FDB00E4656A /* IOSurface.framework */,
 				23A53589267F2FB000E4656A /* Metal.framework */,
@@ -231,7 +234,6 @@
 			buildPhases = (
 				2382CD842686FD2F00EDF9DB /* Sources */,
 				2382CD852686FD2F00EDF9DB /* Frameworks */,
-				2382CD862686FD2F00EDF9DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -378,6 +380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -400,6 +403,7 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					VK_USE_PLATFORM_MACOS_MVK,
 					VK_USE_PLATFORM_METAL_EXT,
@@ -414,8 +418,14 @@
 					/Users/jake/Workspace/personal/MoltenVK/Package/Debug/MoltenVK/include,
 					"/Users/jake/Workspace/personal/MoltenVK-Tests",
 				);
-				LIBRARY_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/jake/VulkanSDK/1.2.176.1/macOS/Frameworks,
+					/Users/jake/VulkanSDK/1.2.176.1/macOS/lib,
+				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib/libvulkan.dylib";
+				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = /Users/jake/Workspace/personal/MoltenVK/MoltenVk/include;
 			};
@@ -425,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -460,7 +471,14 @@
 					/Users/jake/Workspace/personal/MoltenVK/Package/Debug/MoltenVK/include,
 					"/Users/jake/Workspace/personal/MoltenVK-Tests",
 				);
-				LIBRARY_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/jake/VulkanSDK/1.2.176.1/macOS/Frameworks,
+					/Users/jake/VulkanSDK/1.2.176.1/macOS/lib,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib/libvulkan.dylib";
+				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = /Users/jake/Workspace/personal/MoltenVK/MoltenVk/include;
 			};
@@ -469,201 +487,42 @@
 		2382CD8D2686FD2F00EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		2382CD8E2686FD2F00EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		2382CDA72686FF1500EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		2382CDA82686FF1500EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		2382CDBD268701F400EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		2382CDBE268701F400EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MNHBTWM7RN;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};

@@ -95,7 +95,7 @@ int main(int argc, const char * argv[])
   VkImageCreateInfo imageCreateInfo;
   imageCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
   imageCreateInfo.arrayLayers = 1;
-  imageCreateInfo.extent.depth = 0;
+  imageCreateInfo.extent.depth = 1;
   imageCreateInfo.extent.height = 4;
   imageCreateInfo.extent.width = 4;
   imageCreateInfo.flags = 0;
@@ -124,9 +124,9 @@ int main(int argc, const char * argv[])
   VkImageSubresourceRange subresourceRange;
   subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
   subresourceRange.baseArrayLayer = 0;
-  subresourceRange.baseMipLevel = VK_REMAINING_MIP_LEVELS;
-  subresourceRange.layerCount = 0;
-  subresourceRange.levelCount = VK_REMAINING_ARRAY_LAYERS;
+  subresourceRange.baseMipLevel = 0;
+  subresourceRange.layerCount = VK_REMAINING_ARRAY_LAYERS;
+  subresourceRange.levelCount = VK_REMAINING_MIP_LEVELS;
 
   VkImageViewCreateInfo imageViewCreateInfo;
   imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -141,6 +141,11 @@ int main(int argc, const char * argv[])
   VkImageView validImgView;
   VULKAN_CHECK(vkCreateImageView(context.device, &imageViewCreateInfo, nullptr, &validImgView));
 
+  /*
+   Memory should be bound by calling vkBindImageMemory().
+   The Vulkan spec states:
+   If image is non-sparse then it must be bound completely and contiguously to a single VkDeviceMemory object
+   */
   VkDescriptorSet descriptorSet;
   VULKAN_CHECK(vkAllocateDescriptorSets(context.device, &descSetAllocateInfo, &descriptorSet));
   

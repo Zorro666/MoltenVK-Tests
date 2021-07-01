@@ -12,7 +12,7 @@ int main(int argc, const char * argv[])
   createPipeline(context);
   destroyPipeline(context);
 
-  printf("Hello, World!\n");
+  printf("Bug1 pTessellationState = 0x1234\n");
 
   destroyContext(context);
   return 1;

@@ -64,7 +64,7 @@ static const char *VkResultToString(VkResult result) {
 
 void VULKAN_CHECK(VkResult result) {
   if (result != VK_SUCCESS) {
-    fprintf(stderr, "Detected Vulkan error: 0x%08X '%s'", result,
+    fprintf(stderr, "Detected Vulkan error: 0x%08X '%s'\n", result,
             VkResultToString(result));
     abort();
   }
@@ -84,7 +84,7 @@ static void createSurface(Context &context) {
 static VkShaderModule createShaderModule(Context &context, const char *path) {
   std::ifstream file(path, std::ios::binary);
   if (!file.is_open()) {
-    fprintf(stderr, "ERROR opening file '%s'", path);
+    fprintf(stderr, "ERROR opening file '%s'\n", path);
     abort();
   }
 
@@ -110,10 +110,22 @@ static VkShaderModule createShaderModule(Context &context, const char *path) {
 }
 
 static void createVkInstance(Context &context) {
-  printf("Initializing vulkan instance.");
 
-  const char *extensions[2] = {VK_KHR_SURFACE_EXTENSION_NAME,
-                               VK_EXT_METAL_SURFACE_EXTENSION_NAME};
+  uint32_t countAllLayers = 0;
+  VULKAN_CHECK(vkEnumerateInstanceLayerProperties(&countAllLayers, nullptr));
+  std::vector<VkLayerProperties> availInstLayers(countAllLayers);
+  VULKAN_CHECK(vkEnumerateInstanceLayerProperties(&countAllLayers, availInstLayers.data()));
+  
+  for (auto i = 0; i < countAllLayers; ++i)
+    printf("'%s':%d\n", availInstLayers[i].layerName, availInstLayers[i].implementationVersion);
+  
+  printf("Initializing vulkan instance.\n");
+
+  const char *extensions[] = {
+    VK_KHR_SURFACE_EXTENSION_NAME,
+    VK_EXT_METAL_SURFACE_EXTENSION_NAME,
+    "VK_KHR_get_physical_device_properties2",
+  };
 
   VkApplicationInfo app;
   app.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -123,43 +135,48 @@ static void createVkInstance(Context &context) {
   app.pApplicationName = "vk_parameter_zoo";
   app.pEngineName = "MoltenVK-Tests";
   app.apiVersion = VK_MAKE_API_VERSION(0, 1, 0, 0);
+  
+  const char* layers[] = {
+    "VK_LAYER_KHRONOS_validation"
+    //"VK_LAYER_LUNARG_standard_validation"
+  };
 
   VkInstanceCreateInfo instanceCreateInfo;
   instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
   instanceCreateInfo.flags = 0;
   instanceCreateInfo.pNext = nullptr;
   instanceCreateInfo.pApplicationInfo = &app;
-  instanceCreateInfo.enabledExtensionCount = 2;
+  instanceCreateInfo.enabledExtensionCount = std::size(extensions);
   instanceCreateInfo.ppEnabledExtensionNames = extensions;
-  instanceCreateInfo.enabledLayerCount = 0;
-  instanceCreateInfo.ppEnabledLayerNames = nullptr;
+  instanceCreateInfo.enabledLayerCount = std::size(layers);
+  instanceCreateInfo.ppEnabledLayerNames = layers;
 
   VULKAN_CHECK(
       vkCreateInstance(&instanceCreateInfo, nullptr, &context.instance));
 }
 
 static void createVkDevice(Context &context) {
-  printf("Initializing vulkan device.");
+  printf("Initializing vulkan device.\n");
 
   uint32_t gpusCount = 0;
   VULKAN_CHECK(
       vkEnumeratePhysicalDevices(context.instance, &gpusCount, nullptr));
 
   if (gpusCount < 1) {
-    fprintf(stderr, "No physical devices found.");
+    fprintf(stderr, "No physical devices found.\n");
     abort();
   }
 
-  std::vector<VkPhysicalDevice> gpus(gpusCount);
+  std::vector<VkPhysicalDevice> physicalDevices(gpusCount);
   VULKAN_CHECK(
-      vkEnumeratePhysicalDevices(context.instance, &gpusCount, gpus.data()));
-  context.gpu = gpus[0];
+      vkEnumeratePhysicalDevices(context.instance, &gpusCount, physicalDevices.data()));
+  context.physicalDevice = physicalDevices[0];
 
   uint32_t queuesCount;
-  vkGetPhysicalDeviceQueueFamilyProperties(context.gpu, &queuesCount, nullptr);
+  vkGetPhysicalDeviceQueueFamilyProperties(context.physicalDevice, &queuesCount, nullptr);
 
   if (queuesCount < 1) {
-    fprintf(stderr, "No physical device queues found.");
+    fprintf(stderr, "No physical device queues found.\n");
     abort();
   }
 
@@ -175,8 +192,10 @@ static void createVkDevice(Context &context) {
   queueCreateInfo.queueCount = 1;
   queueCreateInfo.pQueuePriorities = &queuePriority;
 
-  std::vector<const char *> extensions;
-  extensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+  const char * extensions[] = {
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+    "VK_KHR_portability_subset",
+  };
 
   VkDeviceCreateInfo deviceCreateInfo;
   deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -187,11 +206,11 @@ static void createVkDevice(Context &context) {
   deviceCreateInfo.ppEnabledLayerNames = nullptr;
   deviceCreateInfo.queueCreateInfoCount = 1;
   deviceCreateInfo.pQueueCreateInfos = &queueCreateInfo;
-  deviceCreateInfo.enabledExtensionCount = uint32_t(extensions.size());
-  deviceCreateInfo.ppEnabledExtensionNames = extensions.data();
+  deviceCreateInfo.enabledExtensionCount = std::size(extensions);
+  deviceCreateInfo.ppEnabledExtensionNames = extensions;
 
   VULKAN_CHECK(
-      vkCreateDevice(context.gpu, &deviceCreateInfo, nullptr, &context.device));
+      vkCreateDevice(context.physicalDevice, &deviceCreateInfo, nullptr, &context.device));
   vkGetDeviceQueue(context.device, context.queueFamilyIndex, 0, &context.queue);
 }
 
@@ -211,7 +230,7 @@ static void createRenderPass(Context &context) {
   VkAttachmentReference colourAttachmentReference;
   colourAttachmentReference.attachment = 0;
   colourAttachmentReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
+  
   VkSubpassDescription subpass;
   subpass.flags = 0;
   subpass.inputAttachmentCount = 0;
@@ -261,154 +280,163 @@ static void destroyShaderModules(Context &context) {
 }
 
 static void initializeBasePipeline(Context &context) {
-  VkPipelineLayoutCreateInfo layoutCreateInfo;
-  layoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-  layoutCreateInfo.flags = 0;
-  layoutCreateInfo.pNext = nullptr;
-  layoutCreateInfo.pPushConstantRanges = nullptr;
-  layoutCreateInfo.pSetLayouts = nullptr;
-  layoutCreateInfo.pushConstantRangeCount = 0l;
-  layoutCreateInfo.setLayoutCount = 0;
-  VULKAN_CHECK(vkCreatePipelineLayout(context.device, &layoutCreateInfo,
+  VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo;
+  pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+  pipelineLayoutCreateInfo.flags = 0;
+  pipelineLayoutCreateInfo.pNext = nullptr;
+  pipelineLayoutCreateInfo.pPushConstantRanges = nullptr;
+  pipelineLayoutCreateInfo.pSetLayouts = nullptr;
+  pipelineLayoutCreateInfo.pushConstantRangeCount = 0l;
+  pipelineLayoutCreateInfo.setLayoutCount = 0;
+  VULKAN_CHECK(vkCreatePipelineLayout(context.device, &pipelineLayoutCreateInfo,
                                       nullptr, &context.pipelineLayout));
 
-  VkPipelineVertexInputStateCreateInfo &vertexInputInfo =
-      context.vertexInputInfo;
-  vertexInputInfo.sType =
+  context.vertexInputStateCreateInfo.sType =
       VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-  vertexInputInfo.flags = 0;
-  vertexInputInfo.pNext = nullptr;
-  vertexInputInfo.pVertexAttributeDescriptions = nullptr;
-  vertexInputInfo.pVertexBindingDescriptions = nullptr;
-  vertexInputInfo.vertexAttributeDescriptionCount = 0;
-  vertexInputInfo.vertexBindingDescriptionCount = 0;
+  context.vertexInputStateCreateInfo.flags = 0;
+  context.vertexInputStateCreateInfo.pNext = nullptr;
+  context.vertexInputStateCreateInfo.pVertexAttributeDescriptions = nullptr;
+  context.vertexInputStateCreateInfo.pVertexBindingDescriptions = nullptr;
+  context.vertexInputStateCreateInfo.vertexAttributeDescriptionCount = 0;
+  context.vertexInputStateCreateInfo.vertexBindingDescriptionCount = 0;
 
-  VkPipelineInputAssemblyStateCreateInfo &inputAssemblyInfo =
-      context.inputAssemblyInfo;
-  inputAssemblyInfo.sType =
+  context.inputAssemblyStateCreateInfo.sType =
       VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-  inputAssemblyInfo.flags = 0;
-  inputAssemblyInfo.pNext = nullptr;
-  inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
-  inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+  context.inputAssemblyStateCreateInfo.flags = 0;
+  context.inputAssemblyStateCreateInfo.pNext = nullptr;
+  context.inputAssemblyStateCreateInfo.primitiveRestartEnable = VK_FALSE;
+  context.inputAssemblyStateCreateInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 
-  VkPipelineRasterizationStateCreateInfo &raster = context.raster;
-  raster.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-  raster.depthClampEnable = VK_FALSE;
-  raster.depthBiasConstantFactor = 0.0f;
-  raster.depthBiasEnable = VK_FALSE;
-  raster.depthBiasSlopeFactor = 0.0f;
-  raster.depthClampEnable = VK_FALSE;
-  raster.flags = 0;
-  raster.pNext = nullptr;
-  raster.polygonMode = VK_POLYGON_MODE_FILL;
-  raster.rasterizerDiscardEnable = VK_FALSE;
+  context.rasterStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+  context.rasterStateCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+  context.rasterStateCreateInfo.depthBiasClamp = 0.0f;
+  context.rasterStateCreateInfo.depthBiasConstantFactor = 0.0f;
+  context.rasterStateCreateInfo.depthBiasEnable = VK_FALSE;
+  context.rasterStateCreateInfo.depthBiasSlopeFactor = 0.0f;
+  context.rasterStateCreateInfo.depthClampEnable = VK_FALSE;
+  context.rasterStateCreateInfo.flags = 0;
+  context.rasterStateCreateInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
+  context.rasterStateCreateInfo.lineWidth = 1.0f;
+  context.rasterStateCreateInfo.pNext = nullptr;
+  context.rasterStateCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
+  context.rasterStateCreateInfo.rasterizerDiscardEnable = VK_FALSE;
 
-  raster.cullMode = VK_CULL_MODE_BACK_BIT;
-  raster.frontFace = VK_FRONT_FACE_CLOCKWISE;
-  raster.lineWidth = 1.0f;
-
-  VkPipelineColorBlendAttachmentState &colourBlendAttachmentState =
-      context.colourBlendAttachmentState;
-  colourBlendAttachmentState.alphaBlendOp = VK_BLEND_OP_ADD;
-  colourBlendAttachmentState.blendEnable = VK_FALSE;
-  colourBlendAttachmentState.colorBlendOp = VK_BLEND_OP_ADD;
-  colourBlendAttachmentState.colorWriteMask =
+  context.colourBlendAttachmentState.alphaBlendOp = VK_BLEND_OP_ADD;
+  context.colourBlendAttachmentState.blendEnable = VK_FALSE;
+  context.colourBlendAttachmentState.colorBlendOp = VK_BLEND_OP_ADD;
+  context.colourBlendAttachmentState.colorWriteMask =
       VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
       VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-  colourBlendAttachmentState.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-  colourBlendAttachmentState.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
-  colourBlendAttachmentState.srcAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-  colourBlendAttachmentState.srcColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+  context.colourBlendAttachmentState.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+  context.colourBlendAttachmentState.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+  context.colourBlendAttachmentState.srcAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+  context.colourBlendAttachmentState.srcColorBlendFactor = VK_BLEND_FACTOR_ZERO;
 
-  VkPipelineColorBlendStateCreateInfo &blend = context.blend;
-  blend.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-  blend.blendConstants[0] = 0.0f;
-  blend.blendConstants[1] = 0.0f;
-  blend.blendConstants[2] = 0.0f;
-  blend.blendConstants[3] = 0.0f;
-  blend.flags = 0;
-  blend.logicOp = VK_LOGIC_OP_NO_OP;
-  blend.logicOpEnable = VK_FALSE;
-  blend.pNext = nullptr;
-  blend.attachmentCount = 1;
-  blend.pAttachments = &context.colourBlendAttachmentState;
+  context.colourBlendStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+  context.colourBlendStateCreateInfo.blendConstants[0] = 0.0f;
+  context.colourBlendStateCreateInfo.blendConstants[1] = 0.0f;
+  context.colourBlendStateCreateInfo.blendConstants[2] = 0.0f;
+  context.colourBlendStateCreateInfo.blendConstants[3] = 0.0f;
+  context.colourBlendStateCreateInfo.flags = 0;
+  context.colourBlendStateCreateInfo.logicOp = VK_LOGIC_OP_NO_OP;
+  context.colourBlendStateCreateInfo.logicOpEnable = VK_FALSE;
+  context.colourBlendStateCreateInfo.pNext = nullptr;
+  context.colourBlendStateCreateInfo.attachmentCount = 1;
+  context.colourBlendStateCreateInfo.pAttachments = &context.colourBlendAttachmentState;
 
-  VkPipelineViewportStateCreateInfo &viewport = context.viewport;
-  viewport.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-  viewport.flags = 0;
-  viewport.pNext = nullptr;
-  viewport.pScissors = nullptr;
-  viewport.pViewports = nullptr;
-  viewport.viewportCount = 0;
-  viewport.scissorCount = 0;
+  context.viewport.height = 480.0f;
+  context.viewport.maxDepth = 1.0f;
+  context.viewport.minDepth = 0.0f;
+  context.viewport.width = 640.0f;
+  context.viewport.x = 0.0f;
+  context.viewport.y = 0.0f;
+  
+  context.scissor.extent.height = 480;
+  context.scissor.extent.width = 640;
+  context.scissor.offset.x = 0;
+  context.scissor.offset.y = 0;
 
-  VkPipelineDepthStencilStateCreateInfo &depthStencil = context.depthStencil;
-  depthStencil.sType =
+  VkPipelineViewportStateCreateInfo &viewportStateCreateInfo = context.viewportStateCreateInfo;
+  viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+  viewportStateCreateInfo.flags = 0;
+  viewportStateCreateInfo.pNext = nullptr;
+  viewportStateCreateInfo.pScissors = &context.scissor;
+  viewportStateCreateInfo.pViewports = &context.viewport;
+  viewportStateCreateInfo.viewportCount = 1;
+  viewportStateCreateInfo.scissorCount = 1;
+
+  VkPipelineDepthStencilStateCreateInfo &depthStencilStateCreateInfo = context.depthStencilStateCreateInfo;
+  depthStencilStateCreateInfo.sType =
       VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-  depthStencil.back = VkStencilOpState();
-  depthStencil.depthBoundsTestEnable = VK_FALSE;
-  depthStencil.depthCompareOp = VK_COMPARE_OP_EQUAL;
-  depthStencil.depthTestEnable = VK_FALSE;
-  depthStencil.depthWriteEnable = VK_FALSE;
-  depthStencil.flags = 0;
-  depthStencil.front = VkStencilOpState();
-  depthStencil.maxDepthBounds = 1.0f;
-  depthStencil.minDepthBounds = 0.0f;
-  depthStencil.pNext = nullptr;
-  depthStencil.stencilTestEnable = VK_FALSE;
+  depthStencilStateCreateInfo.back = VkStencilOpState();
+  depthStencilStateCreateInfo.depthBoundsTestEnable = VK_FALSE;
+  depthStencilStateCreateInfo.depthCompareOp = VK_COMPARE_OP_EQUAL;
+  depthStencilStateCreateInfo.depthTestEnable = VK_FALSE;
+  depthStencilStateCreateInfo.depthWriteEnable = VK_FALSE;
+  depthStencilStateCreateInfo.flags = 0;
+  depthStencilStateCreateInfo.front = VkStencilOpState();
+  depthStencilStateCreateInfo.maxDepthBounds = 1.0f;
+  depthStencilStateCreateInfo.minDepthBounds = 0.0f;
+  depthStencilStateCreateInfo.pNext = nullptr;
+  depthStencilStateCreateInfo.stencilTestEnable = VK_FALSE;
 
-  VkPipelineMultisampleStateCreateInfo &multisample = context.multisample;
-  multisample.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-  multisample.alphaToCoverageEnable = VK_FALSE;
-  multisample.alphaToOneEnable = VK_FALSE;
-  multisample.flags = 0;
-  multisample.minSampleShading = 0.0f;
-  multisample.pNext = nullptr;
-  multisample.pSampleMask = nullptr;
-  multisample.sampleShadingEnable = VK_FALSE;
-  multisample.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+  VkPipelineMultisampleStateCreateInfo &multisampleStateCreateInfo = context.multisampleStateCreateInfo;
+  multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+  multisampleStateCreateInfo.alphaToCoverageEnable = VK_FALSE;
+  multisampleStateCreateInfo.alphaToOneEnable = VK_FALSE;
+  multisampleStateCreateInfo.flags = 0;
+  multisampleStateCreateInfo.minSampleShading = 0.0f;
+  multisampleStateCreateInfo.pNext = nullptr;
+  multisampleStateCreateInfo.pSampleMask = nullptr;
+  multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE;
+  multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
-  VkPipelineDynamicStateCreateInfo &dynamic = context.dynamic;
-  dynamic.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-  dynamic.flags = 0;
-  dynamic.pNext = nullptr;
-  dynamic.pDynamicStates = nullptr;
-  dynamic.dynamicStateCount = 0;
+  VkPipelineDynamicStateCreateInfo &dynamicStateCreateInfo = context.dynamicStateCreateInfo;
+  dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+  dynamicStateCreateInfo.flags = 0;
+  dynamicStateCreateInfo.pNext = nullptr;
+  dynamicStateCreateInfo.pDynamicStates = nullptr;
+  dynamicStateCreateInfo.dynamicStateCount = 0;
 
-  context.shaderStages[0].sType =
+  context.shaderStageCreateInfos[0].sType =
       VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-  context.shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
-  context.shaderStages[0].module = context.shaderModules[0];
-  context.shaderStages[0].pName = "main";
+  context.shaderStageCreateInfos[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
+  context.shaderStageCreateInfos[0].module = context.shaderModules[0];
+  context.shaderStageCreateInfos[0].pName = "main";
+  context.shaderStageCreateInfos[0].flags = 0;
+  context.shaderStageCreateInfos[0].pNext = nullptr;
+  context.shaderStageCreateInfos[0].pSpecializationInfo = nullptr;
 
-  context.shaderStages[1].sType =
+  context.shaderStageCreateInfos[1].sType =
       VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-  context.shaderStages[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-  context.shaderStages[1].module = context.shaderModules[1];
-  context.shaderStages[1].pName = "main";
+  context.shaderStageCreateInfos[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+  context.shaderStageCreateInfos[1].module = context.shaderModules[1];
+  context.shaderStageCreateInfos[1].pName = "main";
+  context.shaderStageCreateInfos[1].flags = 0;
+  context.shaderStageCreateInfos[1].pNext = nullptr;
+  context.shaderStageCreateInfos[1].pSpecializationInfo = nullptr;
 
-  VkGraphicsPipelineCreateInfo &pipe = context.basePipelineCreateInfo;
+  VkGraphicsPipelineCreateInfo &pipelineCreateInfo = context.basePipelineCreateInfo;
 
-  pipe.basePipelineHandle = VK_NULL_HANDLE;
-  pipe.basePipelineIndex = 0;
-  pipe.flags = 0;
-  pipe.layout = context.pipelineLayout;
-  pipe.pColorBlendState = &context.blend;
-  pipe.pDepthStencilState = &context.depthStencil;
-  pipe.pDynamicState = &context.dynamic;
-  pipe.pInputAssemblyState = &context.inputAssemblyInfo;
-  pipe.pMultisampleState = &context.multisample;
-  pipe.pNext = nullptr;
-  pipe.pRasterizationState = &context.raster;
-  pipe.pStages = context.shaderStages;
-  pipe.pTessellationState = nullptr;
-  pipe.pVertexInputState = &context.vertexInputInfo;
-  pipe.pViewportState = &context.viewport;
-  pipe.renderPass = context.renderPass;
-  pipe.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-  pipe.stageCount = 2;
-  pipe.subpass = 0;
+  pipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;
+  pipelineCreateInfo.basePipelineIndex = 0;
+  pipelineCreateInfo.flags = 0;
+  pipelineCreateInfo.layout = context.pipelineLayout;
+  pipelineCreateInfo.pColorBlendState = &context.colourBlendStateCreateInfo;
+  pipelineCreateInfo.pDepthStencilState = &context.depthStencilStateCreateInfo;
+  pipelineCreateInfo.pDynamicState = &context.dynamicStateCreateInfo;
+  pipelineCreateInfo.pInputAssemblyState = &context.inputAssemblyStateCreateInfo;
+  pipelineCreateInfo.pMultisampleState = &context.multisampleStateCreateInfo;
+  pipelineCreateInfo.pNext = nullptr;
+  pipelineCreateInfo.pRasterizationState = &context.rasterStateCreateInfo;
+  pipelineCreateInfo.pStages = context.shaderStageCreateInfos;
+  pipelineCreateInfo.pTessellationState = nullptr;
+  pipelineCreateInfo.pVertexInputState = &context.vertexInputStateCreateInfo;
+  pipelineCreateInfo.pViewportState = &context.viewportStateCreateInfo;
+  pipelineCreateInfo.renderPass = context.renderPass;
+  pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+  pipelineCreateInfo.stageCount = 2;
+  pipelineCreateInfo.subpass = 0;
 }
 
 void initializeContext(Context &context, const char *windowName) {
