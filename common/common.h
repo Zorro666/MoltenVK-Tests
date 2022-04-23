@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include <vulkan/vulkan.h>
+#include "volk/volk.h"
 
 void *cocoa_windowCreate(int width, int height, const char *title);
 void *cocoa_windowGetLayer(void *cocoaWindow);
@@ -9,6 +9,7 @@ void *cocoa_windowGetLayer(void *cocoaWindow);
 void VULKAN_CHECK(VkResult result);
 
 struct Context {
+  Context(int argc, const char *argv[]);
   VkInstance instance = (VkInstance)VK_NULL_HANDLE;
   VkPhysicalDevice physicalDevice = (VkPhysicalDevice)VK_NULL_HANDLE;
   VkDevice device = (VkDevice)VK_NULL_HANDLE;
@@ -34,6 +35,7 @@ struct Context {
 
   void *cocoaWindow = nullptr;
   int32_t queueFamilyIndex = -1;
+  bool enableValidationLayers = false;
 };
 
 void initializeContext(Context &context, const char *windowName);

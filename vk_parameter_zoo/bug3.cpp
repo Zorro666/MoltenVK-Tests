@@ -1,10 +1,10 @@
 #include <algorithm>
 
-#include "common/common.hpp"
+#include "common/common.h"
 
 int main(int argc, const char * argv[])
 {
-  Context context;
+  Context context(argc, argv);
   initializeContext(context, "vk_parameter_zoo");
 
   /*
@@ -40,21 +40,29 @@ int main(int argc, const char * argv[])
   samplerCreateInfo.pNext = nullptr;
   samplerCreateInfo.unnormalizedCoordinates = VK_FALSE;
   VULKAN_CHECK(vkCreateSampler(context.device, &samplerCreateInfo, NULL, &validSampler));
+  VkSampler invalidSampler = (VkSampler)0x1234;
 
-  VkDescriptorSetLayoutBinding descriptorSetLayoutBinding;
-  descriptorSetLayoutBinding.binding = 0;
-  descriptorSetLayoutBinding.descriptorCount = 1;
-  descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-  descriptorSetLayoutBinding.pImmutableSamplers = &validSampler;
-  descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-  
+  VkDescriptorSetLayoutBinding descriptorSetLayoutBindings[2];
+
+  descriptorSetLayoutBindings[0].binding = 0;
+  descriptorSetLayoutBindings[0].descriptorCount = 1;
+  descriptorSetLayoutBindings[0].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+  descriptorSetLayoutBindings[0].pImmutableSamplers = &validSampler;
+  descriptorSetLayoutBindings[0].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+  descriptorSetLayoutBindings[1].binding = 99;
+  descriptorSetLayoutBindings[1].descriptorCount = 1;
+  descriptorSetLayoutBindings[1].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+  descriptorSetLayoutBindings[1].pImmutableSamplers = &invalidSampler;
+  descriptorSetLayoutBindings[1].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+
   VkDescriptorSetLayout descriptorSetLayout;
 
   VkDescriptorSetLayoutCreateInfo layoutInfo;
   layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-  layoutInfo.bindingCount = 1;
+  layoutInfo.bindingCount = 2;
   layoutInfo.flags = 0;
-  layoutInfo.pBindings = &descriptorSetLayoutBinding;
+  layoutInfo.pBindings = descriptorSetLayoutBindings;
   layoutInfo.pNext = nullptr;
 
   VULKAN_CHECK(vkCreateDescriptorSetLayout(context.device, &layoutInfo, nullptr, &descriptorSetLayout));
@@ -158,39 +166,48 @@ int main(int argc, const char * argv[])
   VkDescriptorSet descriptorSet;
   VULKAN_CHECK(vkAllocateDescriptorSets(context.device, &descSetAllocateInfo, &descriptorSet));
   
-  VkSampler invalidSampler = (VkSampler)0x1234;
-  
-  VkDescriptorImageInfo imageInfo;
-  imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
-  imageInfo.imageView = validImgView;
-  imageInfo.sampler = invalidSampler;
-  //imageInfo.sampler = validSampler;
+  VkImageView invalidImgView = (VkImageView)0x1234;
 
-  VkWriteDescriptorSet writeSet;
-  writeSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-  writeSet.descriptorCount = 1;
-  writeSet.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-  writeSet.dstArrayElement = 0;
-  writeSet.dstBinding = 0;
-  writeSet.dstSet = descriptorSet;
-  writeSet.pBufferInfo = nullptr;
-  writeSet.pImageInfo = &imageInfo;
-  writeSet.pNext = nullptr;
-  writeSet.pTexelBufferView = nullptr;
+  VkDescriptorImageInfo combinedImageInfo;
+  combinedImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+  combinedImageInfo.imageView = validImgView;
+  combinedImageInfo.sampler = validSampler;
+
+  VkDescriptorImageInfo soloImageInfo;
+  soloImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+  soloImageInfo.imageView = validImgView;
+  soloImageInfo.sampler = VK_NULL_HANDLE;
+
+  VkWriteDescriptorSet writeSets[2];
+  writeSets[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+  writeSets[0].descriptorCount = 1;
+  writeSets[0].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+  writeSets[0].dstArrayElement = 0;
+  writeSets[0].dstBinding = 0;
+  writeSets[0].dstSet = descriptorSet;
+  writeSets[0].pBufferInfo = nullptr;
+  writeSets[0].pImageInfo = &combinedImageInfo;
+  writeSets[0].pNext = nullptr;
+  writeSets[0].pTexelBufferView = nullptr;
+
+  writeSets[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+  writeSets[1].descriptorCount = 1;
+  writeSets[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+  writeSets[1].dstArrayElement = 0;
+  writeSets[1].dstBinding = 0;
+  writeSets[1].dstSet = descriptorSet;
+  writeSets[1].pBufferInfo = nullptr;
+  writeSets[1].pImageInfo = &soloImageInfo;
+  writeSets[1].pNext = nullptr;
+  writeSets[1].pTexelBufferView = nullptr;
   VkCopyDescriptorSet copySet;
-  vkUpdateDescriptorSets(context.device, 1, &writeSet, 0, &copySet);
+  vkUpdateDescriptorSets(context.device, 2, writeSets, 0, &copySet);
 
-/*
-  vkh::updateDescriptorSets(
-    device,
-    {
-      vkh::WriteDescriptorSet(
-        immutdescset, 0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-        {
-          vkh::DescriptorImageInfo(validImgView, VK_IMAGE_LAYOUT_GENERAL, invalidSampler),
-        }),
-    });
- */
+  // updates to a VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER descriptor
+  // with immutable samplers does not modify the samplers
+  // (the image views are updated, but the sampler updates are ignored).
+  soloImageInfo.sampler = invalidSampler;
+  vkUpdateDescriptorSets(context.device, 2, writeSets, 0, &copySet);
 
   printf("Hello, World!\n");
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		230C72E4268AD7F40017A1D8 /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
 		2382CD8F2686FDCA00EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
 		2382CD902686FDCD00EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		2382CD912686FE5100EDF9DB /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A5358C267F2FDB00E4656A /* IOSurface.framework */; };
@@ -17,7 +16,6 @@
 		2382CD972686FE7C00EDF9DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
 		2382CD9B2686FF1500EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		2382CD9C2686FF1500EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
-		2382CD9F2686FF1500EDF9DB /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
 		2382CDA02686FF1500EDF9DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
 		2382CDA12686FF1500EDF9DB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53589267F2FB000E4656A /* Metal.framework */; };
 		2382CDA22686FF1500EDF9DB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53565267BE5DF00E4656A /* AppKit.framework */; };
@@ -27,38 +25,16 @@
 		2382CDAE268700E400EDF9DB /* bug2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CDAC268700C000EDF9DB /* bug2.cpp */; };
 		2382CDB1268701F400EDF9DB /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CD812686F56400EDF9DB /* common.cpp */; };
 		2382CDB2268701F400EDF9DB /* cocoa_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23A53560267BE4DB00E4656A /* cocoa_window.mm */; };
-		2382CDB5268701F400EDF9DB /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53583267F2E1E00E4656A /* libMoltenVK.a */; };
 		2382CDB6268701F400EDF9DB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53563267BE5C700E4656A /* QuartzCore.framework */; };
 		2382CDB7268701F400EDF9DB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53589267F2FB000E4656A /* Metal.framework */; };
 		2382CDB8268701F400EDF9DB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53565267BE5DF00E4656A /* AppKit.framework */; };
 		2382CDB9268701F400EDF9DB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A53587267F2F9500E4656A /* IOKit.framework */; };
 		2382CDBA268701F400EDF9DB /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A5358C267F2FDB00E4656A /* IOSurface.framework */; };
 		2382CDC12687023800EDF9DB /* bug3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382CDC02687023800EDF9DB /* bug3.cpp */; };
+		23BA23DA2812F20600695C5D /* volk.c in Sources */ = {isa = PBXBuildFile; fileRef = 23BA23D82812F20600695C5D /* volk.c */; };
+		23BA23DB2812F20600695C5D /* volk.c in Sources */ = {isa = PBXBuildFile; fileRef = 23BA23D82812F20600695C5D /* volk.c */; };
+		23BA23DC2813007F00695C5D /* volk.c in Sources */ = {isa = PBXBuildFile; fileRef = 23BA23D82812F20600695C5D /* volk.c */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		23A5357E267F2E1E00E4656A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A9B8EE0A1A98D796009C5A02;
-			remoteInfo = "MoltenVK-iOS";
-		};
-		23A53580267F2E1E00E4656A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2FEA0ABA24902F9F00EEF3AD;
-			remoteInfo = "MoltenVK-tvOS";
-		};
-		23A53582267F2E1E00E4656A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A9CBEE011B6299D800E45FDC;
-			remoteInfo = "MoltenVK-macOS";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2382CDA52686FF1500EDF9DB /* CopyFiles */ = {
@@ -89,7 +65,7 @@
 		230C72E5268AD8FD0017A1D8 /* vk_parameter_zoo_bug_2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo_bug_2.entitlements; sourceTree = "<group>"; };
 		230C72E6268AD9000017A1D8 /* vk_parameter_zoo_bug_3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vk_parameter_zoo_bug_3.entitlements; sourceTree = "<group>"; };
 		2382CD812686F56400EDF9DB /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
-		2382CD822686F56400EDF9DB /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
+		2382CD822686F56400EDF9DB /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		2382CD8A2686FD2F00EDF9DB /* bug1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bug1.cpp; sourceTree = "<group>"; };
 		2382CD942686FE6900EDF9DB /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		2382CDAC268700C000EDF9DB /* bug2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bug2.cpp; sourceTree = "<group>"; };
@@ -106,10 +82,13 @@
 		23A53574267E4E6E00E4656A /* frag.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frag.glsl; sourceTree = "<group>"; };
 		23A53575267E4F2F00E4656A /* vert.spv */ = {isa = PBXFileReference; lastKnownFileType = file; path = vert.spv; sourceTree = "<group>"; };
 		23A53576267E4F2F00E4656A /* frag.spv */ = {isa = PBXFileReference; lastKnownFileType = file; path = frag.spv; sourceTree = "<group>"; };
-		23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoltenVK.xcodeproj; path = ../MoltenVK/MoltenVK/MoltenVK.xcodeproj; sourceTree = "<group>"; };
 		23A53587267F2F9500E4656A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		23A53589267F2FB000E4656A /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		23A5358C267F2FDB00E4656A /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
+		23BA23CA2812E89400695C5D /* MoltenVK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MoltenVK.xcframework; path = ../MoltenVK/Package/Debug/MoltenVK/MoltenVK.xcframework; sourceTree = "<group>"; };
+		23BA23CC2812EBF100695C5D /* vulkan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vulkan.framework; path = ../../../VulkanSDK/1.3.211.0/macOS/Frameworks/vulkan.framework; sourceTree = "<group>"; };
+		23BA23D82812F20600695C5D /* volk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = volk.c; sourceTree = "<group>"; };
+		23BA23D92812F20600695C5D /* volk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = volk.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				230C72E4268AD7F40017A1D8 /* libMoltenVK.a in Frameworks */,
 				2382CD972686FE7C00EDF9DB /* QuartzCore.framework in Frameworks */,
 				2382CD962686FE7300EDF9DB /* Metal.framework in Frameworks */,
 				2382CD932686FE5F00EDF9DB /* AppKit.framework in Frameworks */,
@@ -130,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2382CD9F2686FF1500EDF9DB /* libMoltenVK.a in Frameworks */,
 				2382CDA02686FF1500EDF9DB /* QuartzCore.framework in Frameworks */,
 				2382CDA12686FF1500EDF9DB /* Metal.framework in Frameworks */,
 				2382CDA22686FF1500EDF9DB /* AppKit.framework in Frameworks */,
@@ -143,7 +120,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2382CDB5268701F400EDF9DB /* libMoltenVK.a in Frameworks */,
 				2382CDB6268701F400EDF9DB /* QuartzCore.framework in Frameworks */,
 				2382CDB7268701F400EDF9DB /* Metal.framework in Frameworks */,
 				2382CDB8268701F400EDF9DB /* AppKit.framework in Frameworks */,
@@ -161,13 +137,13 @@
 				230C72E6268AD9000017A1D8 /* vk_parameter_zoo_bug_3.entitlements */,
 				230C72E5268AD8FD0017A1D8 /* vk_parameter_zoo_bug_2.entitlements */,
 				230C72E3268AD4CB0017A1D8 /* vk_parameter_zoo_bug_1.entitlements */,
-				23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */,
 				2382CD7E2686F4F700EDF9DB /* common */,
 				23A535572674852700E4656A /* vk_parameter_zoo */,
 				23A53562267BE5C700E4656A /* Frameworks */,
 				2382CDC2268702D300EDF9DB /* vk_parameter_zoo_bug_1 */,
 				2382CDC3268702D600EDF9DB /* vk_parameter_zoo_bug_2 */,
 				2382CDC4268702DA00EDF9DB /* vk_parameter_zoo_bug_3 */,
+				23BA23D72812F20600695C5D /* volk */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -182,7 +158,7 @@
 				23A53574267E4E6E00E4656A /* frag.glsl */,
 				23A53573267E4E4A00E4656A /* vert.glsl */,
 				2382CD812686F56400EDF9DB /* common.cpp */,
-				2382CD822686F56400EDF9DB /* common.hpp */,
+				2382CD822686F56400EDF9DB /* common.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -200,6 +176,8 @@
 		23A53562267BE5C700E4656A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23BA23CC2812EBF100695C5D /* vulkan.framework */,
+				23BA23CA2812E89400695C5D /* MoltenVK.xcframework */,
 				230C72E1268AD40A0017A1D8 /* libvulkan.1.2.179.dylib */,
 				230C72DC268ACD3E0017A1D8 /* vulkan.framework */,
 				230C72D7268ACC6A0017A1D8 /* libvulkan.1.2.176.dylib */,
@@ -215,14 +193,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		23A53578267F2E1D00E4656A /* Products */ = {
+		23BA23D72812F20600695C5D /* volk */ = {
 			isa = PBXGroup;
 			children = (
-				23A5357F267F2E1E00E4656A /* libMoltenVK.a */,
-				23A53581267F2E1E00E4656A /* libMoltenVK.a */,
-				23A53583267F2E1E00E4656A /* libMoltenVK.a */,
+				23BA23D82812F20600695C5D /* volk.c */,
+				23BA23D92812F20600695C5D /* volk.h */,
 			);
-			name = Products;
+			path = volk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,7 +262,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					2382CD872686FD2F00EDF9DB = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -303,12 +280,6 @@
 			mainGroup = 23197950266F352D00EED288;
 			productRefGroup = 23197950266F352D00EED288;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 23A53578267F2E1D00E4656A /* Products */;
-					ProjectRef = 23A53577267F2E1D00E4656A /* MoltenVK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				2382CD872686FD2F00EDF9DB /* vk_parameter_zoo_bug_1 */,
@@ -318,30 +289,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		23A5357F267F2E1E00E4656A /* libMoltenVK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libMoltenVK.a;
-			remoteRef = 23A5357E267F2E1E00E4656A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23A53581267F2E1E00E4656A /* libMoltenVK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libMoltenVK.a;
-			remoteRef = 23A53580267F2E1E00E4656A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23A53583267F2E1E00E4656A /* libMoltenVK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libMoltenVK.a;
-			remoteRef = 23A53582267F2E1E00E4656A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXSourcesBuildPhase section */
 		2382CD842686FD2F00EDF9DB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -350,6 +297,7 @@
 				2382CD902686FDCD00EDF9DB /* common.cpp in Sources */,
 				2382CD8F2686FDCA00EDF9DB /* cocoa_window.mm in Sources */,
 				2382CDAB2687003600EDF9DB /* bug1.cpp in Sources */,
+				23BA23DA2812F20600695C5D /* volk.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +308,7 @@
 				2382CD9B2686FF1500EDF9DB /* common.cpp in Sources */,
 				2382CD9C2686FF1500EDF9DB /* cocoa_window.mm in Sources */,
 				2382CDAE268700E400EDF9DB /* bug2.cpp in Sources */,
+				23BA23DB2812F20600695C5D /* volk.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +319,7 @@
 				2382CDB1268701F400EDF9DB /* common.cpp in Sources */,
 				2382CDB2268701F400EDF9DB /* cocoa_window.mm in Sources */,
 				2382CDC12687023800EDF9DB /* bug3.cpp in Sources */,
+				23BA23DC2813007F00695C5D /* volk.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +351,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -414,17 +363,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Users/jake/Workspace/personal/MoltenVK/Package/Debug/MoltenVK/include,
-					"/Users/jake/Workspace/personal/MoltenVK-Tests",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib";
-				LIBRARY_SEARCH_PATHS = (
-					/Users/jake/VulkanSDK/1.2.176.1/macOS/Frameworks,
-					/Users/jake/VulkanSDK/1.2.176.1/macOS/lib,
-				);
+				HEADER_SEARCH_PATHS = "/Users/jake/Workspace/personal/MoltenVK-Tests";
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib/libvulkan.dylib";
 				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = /Users/jake/Workspace/personal/MoltenVK/MoltenVk/include;
@@ -455,29 +396,17 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					VK_USE_PLATFORM_MACOS_MVK,
-					VK_USE_PLATFORM_METAL_EXT,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = VK_USE_PLATFORM_MACOS_MVK;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Users/jake/Workspace/personal/MoltenVK/Package/Debug/MoltenVK/include,
-					"/Users/jake/Workspace/personal/MoltenVK-Tests",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib";
-				LIBRARY_SEARCH_PATHS = (
-					/Users/jake/VulkanSDK/1.2.176.1/macOS/Frameworks,
-					/Users/jake/VulkanSDK/1.2.176.1/macOS/lib,
-				);
+				HEADER_SEARCH_PATHS = "/Users/jake/Workspace/personal/MoltenVK-Tests";
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "/Users/jake/Workspace/personal/Vulkan-Tools/build/Vulkan-Loader/build/install/lib/libvulkan.dylib";
 				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = /Users/jake/Workspace/personal/MoltenVK/MoltenVk/include;
@@ -487,6 +416,7 @@
 		2382CD8D2686FD2F00EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -494,6 +424,7 @@
 		2382CD8E2686FD2F00EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -501,6 +432,7 @@
 		2382CDA72686FF1500EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -508,6 +440,7 @@
 		2382CDA82686FF1500EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -515,6 +448,7 @@
 		2382CDBD268701F400EDF9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -522,6 +456,7 @@
 		2382CDBE268701F400EDF9DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

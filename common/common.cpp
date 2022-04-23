@@ -1,7 +1,19 @@
 #include <stdlib.h>
 #include <fstream>
 #include <vector>
-#include "common.hpp"
+#include "common.h"
+
+Context::Context(int argc, const char *argv[])
+{
+  enableValidationLayers = false;
+  for (int i = 0; i < argc; ++i)
+  {
+    if (strcmp(argv[i], "--debug") == 0)
+    {
+      enableValidationLayers = true;
+    }
+  }
+}
 
 static const char *VkResultToString(VkResult result) {
   switch (result) {
@@ -115,6 +127,8 @@ static VkShaderModule createShaderModule(Context &context, const char *path) {
 
 static void createVkInstance(Context &context) {
 
+  VULKAN_CHECK(volkInitialize());
+
   uint32_t countAllLayers = 0;
   VULKAN_CHECK(vkEnumerateInstanceLayerProperties(&countAllLayers, nullptr));
   std::vector<VkLayerProperties> availInstLayers(countAllLayers);
@@ -152,11 +166,13 @@ static void createVkInstance(Context &context) {
   instanceCreateInfo.pApplicationInfo = &app;
   instanceCreateInfo.enabledExtensionCount = std::size(extensions);
   instanceCreateInfo.ppEnabledExtensionNames = extensions;
-  instanceCreateInfo.enabledLayerCount = std::size(layers);
-  instanceCreateInfo.ppEnabledLayerNames = layers;
+  instanceCreateInfo.enabledLayerCount = context.enableValidationLayers ? 1 : 0;
+  instanceCreateInfo.ppEnabledLayerNames = context.enableValidationLayers ? layers : nullptr;
 
   VULKAN_CHECK(
       vkCreateInstance(&instanceCreateInfo, nullptr, &context.instance));
+
+  volkLoadInstance(context.instance);
 }
 
 static void createVkDevice(Context &context) {
